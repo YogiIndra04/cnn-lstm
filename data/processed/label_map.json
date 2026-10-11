@@ -1,0 +1,32 @@
+{
+  "label_to_idx": {
+    "i_love_you": 0,
+    "kamu_makan": 1,
+    "terima_kasih": 2
+  },
+  "idx_to_label": {
+    "0": "i_love_you",
+    "1": "kamu_makan",
+    "2": "terima_kasih"
+  },
+  "classes": [
+    "i_love_you",
+    "kamu_makan",
+    "terima_kasih"
+  ],
+  "n_classes": 3,
+  "preprocessing": {
+    "num_frames": 30,
+    "img_height": 300,
+    "img_width": 300,
+    "channels": 3,
+    "color_mode": "RGB",
+    "normalization": "divide_by_255_float32",
+    "input_shape_per_sample": [
+      30,
+      300,
+      300,
+      3
+    ]
+  }
+}

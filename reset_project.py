@@ -1,4 +1,4 @@
-﻿"""Reset generated artifacts so the experiment can start from a clean state."""
+"""Reset generated artifacts so the experiment can start from a clean state."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Reset generated data/model artifacts.")
+    parser = argparse.ArgumentParser(description="Reset generated data/model/report artifacts.")
     parser.add_argument(
         "--full",
         action="store_true",
@@ -32,9 +32,10 @@ def main() -> None:
     args = parse_args()
 
     targets = [
-        Path("data/landmarks"),
         Path("data/processed"),
+        Path("data/splits"),
         Path("models"),
+        Path("reports"),
     ]
     if args.full:
         targets.append(Path("data/raw_videos"))

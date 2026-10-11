@@ -1,0 +1,508 @@
+{
+  "input_dir": "data\\raw_videos",
+  "output_dir": "data\\processed",
+  "total_videos_found": 60,
+  "videos_ok": 60,
+  "videos_failed": 0,
+  "n_classes": 3,
+  "classes": [
+    "i_love_you",
+    "kamu_makan",
+    "terima_kasih"
+  ],
+  "split": {
+    "train": 42,
+    "val": 9,
+    "test": 9
+  },
+  "config": {
+    "num_frames": 30,
+    "img_height": 300,
+    "img_width": 300,
+    "channels": 3,
+    "color_mode": "RGB"
+  },
+  "failed_samples": [],
+  "preprocessing_log": [
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_001.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_002.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_003.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_004.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_005.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 43,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_006.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_007.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_008.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_009.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_010.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_011.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_012.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_013.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_014.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_015.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_016.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 43,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_017.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_018.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_019.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\i_love_you\\sample_020.mp4",
+      "label": "i_love_you"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 43,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_001.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_002.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_003.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_004.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_005.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_006.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_007.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_008.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_009.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_010.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_011.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_012.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_013.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_014.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_015.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_016.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_017.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_018.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_019.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\kamu_makan\\sample_020.mp4",
+      "label": "kamu_makan"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_001.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_002.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_003.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_004.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 40,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_005.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_006.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_007.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_008.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_009.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_010.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_011.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_012.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_013.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 43,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_014.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_015.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_016.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_017.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_018.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 41,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_019.mp4",
+      "label": "terima_kasih"
+    },
+    {
+      "status": "ok",
+      "repeated": false,
+      "original_frames": 42,
+      "reason": "",
+      "path": "data\\raw_videos\\terima_kasih\\sample_020.mp4",
+      "label": "terima_kasih"
+    }
+  ]
+}
