@@ -15,11 +15,11 @@ konfirmasi dari peneliti apabila berbeda dari dokumen skripsi.
 NUM_FRAMES: int = 30
 """Jumlah frame per video (spesifikasi skripsi)."""
 
-IMAGE_HEIGHT: int = 300
-"""Tinggi frame dalam piksel (spesifikasi skripsi)."""
+IMAGE_HEIGHT: int = 160
+"""Tinggi frame dalam piksel (dioptimasi ke 160x160 untuk efisiensi VRAM 16GB)."""
 
-IMAGE_WIDTH: int = 300
-"""Lebar frame dalam piksel (spesifikasi skripsi)."""
+IMAGE_WIDTH: int = 160
+"""Lebar frame dalam piksel (dioptimasi ke 160x160 untuk efisiensi VRAM 16GB)."""
 
 CHANNELS: int = 3
 """Jumlah kanal warna (RGB)."""
@@ -59,8 +59,11 @@ DROPOUT_RATE: float = 0.5
 LEARNING_RATE: float = 1e-3
 """Learning rate awal optimizer Adam."""
 
-BATCH_SIZE: int = 8
-"""Ukuran batch pelatihan."""
+BATCH_SIZE: int = 2
+"""Ukuran batch pelatihan (default 2 untuk VRAM 16GB, fallback ke 1 jika OOM)."""
+
+USE_MIXED_PRECISION: bool = True
+"""Gunakan mixed precision (mixed_float16) pada GPU untuk menghemat VRAM dan mempercepat training."""
 
 MAX_EPOCHS: int = 50
 """Maksimum epoch pelatihan."""

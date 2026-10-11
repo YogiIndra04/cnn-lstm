@@ -17,8 +17,8 @@
   },
   "config": {
     "num_frames": 30,
-    "img_height": 300,
-    "img_width": 300,
+    "img_height": 160,
+    "img_width": 160,
     "channels": 3,
     "color_mode": "RGB"
   },

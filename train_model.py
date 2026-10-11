@@ -46,11 +46,12 @@ from configs.model_config import (
     REDUCE_LR_PATIENCE,
     TRAINING_CONFIG_JSON,
     TRAINING_HISTORY_NPZ,
+    USE_MIXED_PRECISION,
 )
 from model_architecture import build_model, verify_model_shapes
 
 # ---------------------------------------------------------------------------
-# Logging
+# Logging & Diagnostik Memori
 # ---------------------------------------------------------------------------
 
 logging.basicConfig(
@@ -59,6 +60,23 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 log = logging.getLogger(__name__)
+
+
+def log_memory_usage(prefix: str = "") -> None:
+    """Catat penggunaan memori host dan GPU jika tersedia."""
+    msg = [prefix] if prefix else []
+    gpus = tf.config.list_physical_devices("GPU")
+    if gpus:
+        try:
+            mem_info = tf.config.experimental.get_memory_info("GPU:0")
+            current_mb = mem_info["current"] / (1024 * 1024)
+            peak_mb = mem_info["peak"] / (1024 * 1024)
+            msg.append(f"GPU VRAM: current={current_mb:.1f} MB, peak={peak_mb:.1f} MB")
+        except Exception:
+            msg.append(f"GPU terdeteksi: {len(gpus)} device(s)")
+    else:
+        msg.append("GPU tidak terdeteksi (Running on CPU)")
+    log.info(" | ".join(msg))
 
 
 # ---------------------------------------------------------------------------
@@ -75,7 +93,7 @@ def set_seeds(seed: int) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Dataset Loader
+# Dataset Loader (Streaming on-the-fly)
 # ---------------------------------------------------------------------------
 
 def create_tf_dataset(
@@ -86,17 +104,26 @@ def create_tf_dataset(
     seed: int = RANDOM_SEED,
 ) -> tf.data.Dataset:
     """
-    Buat tf.data.Dataset dengan normalisasi [0, 1] on-the-fly.
-    Menjaga array X tetap uint8 di memori untuk mencegah OOM.
+    Buat tf.data.Dataset dengan streaming dan normalisasi [0, 1] bertahap on-the-fly.
+    
+    Optimasi VRAM & RAM:
+    1. Array X disimpan sebagai uint8 di host RAM (1 byte/elemen, bukan 4 byte float32).
+    2. Batching dilakukan terlebih dahulu sehingga mapping normalisasi beroperasi
+       secara efisien per batch (vectorized operation).
+    3. Normalisasi tf.cast(..., float32) / 255.0 hanya dieksekusi saat batch ditarik,
+       sehingga VRAM hanya memuat 1 batch aktif per iterasi training.
+    4. prefetch(tf.data.AUTOTUNE) mengalirkan batch berikutnya secara asinkron tanpa
+       menimbun seluruh data di GPU memory.
     """
     ds = tf.data.Dataset.from_tensor_slices((X, y))
     if shuffle:
-        ds = ds.shuffle(buffer_size=len(X), seed=seed, reshuffle_each_iteration=True)
+        ds = ds.shuffle(buffer_size=min(len(X), 100), seed=seed, reshuffle_each_iteration=True)
+    ds = ds.batch(batch_size)
     ds = ds.map(
         lambda x, lbl: (tf.cast(x, tf.float32) / 255.0, lbl),
         num_parallel_calls=tf.data.AUTOTUNE,
     )
-    ds = ds.batch(batch_size).prefetch(tf.data.AUTOTUNE)
+    ds = ds.prefetch(tf.data.AUTOTUNE)
     return ds
 
 
@@ -106,7 +133,7 @@ def create_tf_dataset(
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Latih model CNN2D-LSTM pengenalan kata Bahasa Kolok."
+        description="Latih model CNN2D-LSTM pengenalan kata Bahasa Kolok dengan optimasi VRAM 16GB."
     )
     parser.add_argument(
         "--dataset",
@@ -136,13 +163,25 @@ def parse_args() -> argparse.Namespace:
         "--batch-size",
         type=int,
         default=BATCH_SIZE,
-        help="Ukuran batch pelatihan (gunakan batch kecil misal 2 atau 4 di CPU).",
+        help="Ukuran batch pelatihan (default: 2 untuk VRAM 16GB, fallback ke 1 jika OOM).",
     )
     parser.add_argument(
         "--learning-rate",
         type=float,
         default=LEARNING_RATE,
         help="Learning rate awal optimizer Adam.",
+    )
+    parser.add_argument(
+        "--mixed-precision",
+        action="store_true",
+        default=USE_MIXED_PRECISION,
+        help="Aktifkan mixed precision (mixed_float16) pada GPU.",
+    )
+    parser.add_argument(
+        "--no-mixed-precision",
+        action="store_false",
+        dest="mixed_precision",
+        help="Nonaktifkan mixed precision.",
     )
     return parser.parse_args()
 
@@ -155,12 +194,30 @@ def main() -> None:
     args = parse_args()
     set_seeds(RANDOM_SEED)
 
-    # Periksa ketersediaan akselerator GPU
+    # Periksa ketersediaan akselerator GPU dan konfigurasi memori
     gpus = tf.config.list_physical_devices("GPU")
     if gpus:
         log.info("GPU terdeteksi (%d perangkat): %s", len(gpus), gpus)
+        try:
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+            log.info("GPU Memory Growth diaktifkan untuk mencegah alokasi 100% VRAM sekaligus.")
+        except RuntimeError as e:
+            log.warning("Gagal mengatur GPU Memory Growth: %s", e)
+
+        if args.mixed_precision:
+            try:
+                policy = tf.keras.mixed_precision.Policy("mixed_float16")
+                tf.keras.mixed_precision.set_global_policy(policy)
+                log.info("Mixed precision aktif: compute_dtype=%s, variable_dtype=%s", policy.compute_dtype, policy.variable_dtype)
+            except Exception as e:
+                log.warning("Gagal mengaktifkan mixed precision: %s. Melanjutkan dengan float32.", e)
+        else:
+            log.info("Mixed precision dinonaktifkan oleh pengguna (menggunakan float32).")
     else:
-        log.info("GPU tidak tersedia. Training menggunakan CPU.")
+        log.info("GPU tidak tersedia. Training menggunakan CPU (float32).")
+
+    log_memory_usage("Inisialisasi Lingkungan")
 
     dataset_path = Path(args.dataset)
     if not dataset_path.exists():
@@ -270,6 +327,7 @@ def main() -> None:
     )
     elapsed = time.time() - start_time
     log.info("Training selesai dalam %.2f detik (%.2f menit).", elapsed, elapsed / 60.0)
+    log_memory_usage("Setelah Training Selesai")
 
     # Simpan final model
     final_model_path = Path(FINAL_MODEL_PATH)
@@ -294,6 +352,9 @@ def main() -> None:
         "epochs_run": len(history.epoch),
         "batch_size": args.batch_size,
         "initial_learning_rate": args.learning_rate,
+        "mixed_precision": bool(args.mixed_precision and bool(gpus)),
+        "input_resolution": [IMAGE_HEIGHT, IMAGE_WIDTH],
+        "num_frames": NUM_FRAMES,
         "early_stopping_patience": EARLY_STOPPING_PATIENCE,
         "early_stopping_monitor": EARLY_STOPPING_MONITOR,
         "reduce_lr_patience": REDUCE_LR_PATIENCE,

@@ -1,7 +1,7 @@
 """
 Inferensi real-time webcam untuk pengenalan kata Bahasa Kolok menggunakan CNN2D-LSTM.
 
-Input model: raw RGB 300×300 (konsisten dengan preprocessing training).
+Input model: raw RGB 160×160 (konsisten dengan preprocessing training).
 Tidak menggunakan MediaPipe atau representasi landmark.
 
 Jalankan dari root proyek:

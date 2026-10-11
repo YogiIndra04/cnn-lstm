@@ -1,14 +1,14 @@
 """
 Arsitektur model CNN-LSTM untuk pengenalan kata Bahasa Kolok.
 
-Metodologi (tidak boleh diubah tanpa alasan terdokumentasi):
-  Input  : (batch, 30, 300, 300, 3) float32 [0, 1]
+Metodologi (dioptimasi untuk efisiensi VRAM 16GB):
+  Input  : (batch, 30, 160, 160, 3) float32 [0, 1]
   CNN    : 3 blok Conv2D (32→64→128 filter, 3×3, ReLU, same) + MaxPool2D (2×2)
   GAP    : TimeDistributed(GlobalAveragePooling2D) → (batch, 30, 128)
   LSTM   : 128 unit, return_sequences=False → (batch, 128)
   Dropout: 0.5
   Dense  : 64 unit, ReLU
-  Output : n_classes unit, Softmax
+  Output : n_classes unit, Softmax (dtype=float32 untuk stabilitas numerik mixed precision)
 """
 
 from __future__ import annotations
@@ -107,8 +107,8 @@ def build_model(n_classes: int) -> tf.keras.Model:
     # --- Dense 64 ---
     x = layers.Dense(DENSE_UNITS, activation="relu", name="dense_64")(x)
 
-    # --- Output Softmax ---
-    outputs = layers.Dense(n_classes, activation="softmax", name="class_output")(x)
+    # --- Output Softmax (float32 untuk stabilitas numerik pada mixed precision) ---
+    outputs = layers.Dense(n_classes, activation="softmax", dtype="float32", name="class_output")(x)
 
     model = models.Model(inputs=inputs, outputs=outputs, name="cnn2d_lstm_kolok")
     return model

@@ -2,7 +2,7 @@
 Preprocessing video dataset Bahasa Kolok untuk model CNN-LSTM.
 
 Alur:
-  video MP4 → 30 frame RGB 300×300 → normalisasi float32 [0,1]
+  video MP4 → 30 frame RGB 160×160 → normalisasi float32 [0,1]
   → pembagian train/val/test → dataset_sequences.npz + label_map.json
 
 Jalankan dari root proyek:
@@ -174,7 +174,7 @@ def discover_videos(root_dir: Path | str) -> list[tuple[Path, str]]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Preprocess raw RGB videos to 300x300 image sequences for CNN2D-LSTM."
+        description="Preprocess raw RGB videos to 160x160 image sequences for CNN2D-LSTM."
     )
     parser.add_argument("--input-dir", type=str, default=RAW_VIDEO_DIR, help="Direktori root raw_videos.")
     parser.add_argument("--output-dir", type=str, default=PROCESSED_DIR, help="Direktori output data/processed.")

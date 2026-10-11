@@ -17,15 +17,15 @@
   "n_classes": 3,
   "preprocessing": {
     "num_frames": 30,
-    "img_height": 300,
-    "img_width": 300,
+    "img_height": 160,
+    "img_width": 160,
     "channels": 3,
     "color_mode": "RGB",
     "normalization": "divide_by_255_float32",
     "input_shape_per_sample": [
       30,
-      300,
-      300,
+      160,
+      160,
       3
     ]
   }

@@ -2,7 +2,7 @@
 Inferensi: prediksi kata Bahasa Kolok dari satu video.
 
 Fungsi `predict_video()` dapat diimpor dan digunakan kembali di modul lain.
-Preprocessing identik dengan pipeline training (raw RGB, 300×300, 30 frame).
+Preprocessing identik dengan pipeline training (raw RGB, 160×160, 30 frame).
 
 Jalankan dari root proyek:
     python predict_video.py --video PATH_VIDEO [--model ...] [--label-map ...]
